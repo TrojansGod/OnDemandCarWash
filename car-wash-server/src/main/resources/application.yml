@@ -1,0 +1,10 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: Car wash Server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Ayush-Khamrui/car-wash
