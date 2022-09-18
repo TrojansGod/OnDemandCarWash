@@ -35,8 +35,9 @@ public class UserService{
 		for(int i=0;i<users.size();i++) {
 			Customer u = users.get(i);
 			if(u.getEmailId().equals(emailId)) {
+				user.setRole(u.getRole());
 				users.set(i, user);
-				return;
+				repository.save(user);
 			}
 		}
 	}

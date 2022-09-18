@@ -12,10 +12,16 @@ import com.carwash.order.models.Order;
 
 @Repository
 public interface OrderRepository extends MongoRepository<Order,String> {
-		Optional<Order> findByOrderId(String orderId);
 		
-		@Query("{'emailId' : :#{#emailId}}")
-		Order findByEmail(@Param("emailId")String emailId);
 		
-		List<Order> findByLocation(String location);
+	  @Query("{emailId :?0}")      
+      List<Order> getByemailId(String emailId);
+	  
+	  @Query("{washerId :?0}")      
+      List<Order> getBywasherId(String washerId);
+	  
+	  @Query("{washerId: ?0, emailId: ?1}")  
+		Order findByPay(String washerId, String emailId);
+	  
+		
 }

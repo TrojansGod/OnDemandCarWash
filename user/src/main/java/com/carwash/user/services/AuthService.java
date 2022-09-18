@@ -1,8 +1,9 @@
 package com.carwash.user.services;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.carwash.user.controllers.UserController;
 import com.carwash.user.models.Customer;
@@ -11,6 +12,7 @@ import com.carwash.user.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 
@@ -29,6 +31,8 @@ public class AuthService implements UserDetailsService {
 
 	static String  password="default";
 	static String user="default";
+	
+	static Set authorities=new HashSet();
 	public static boolean Dcrypto(String n,String o)
 	{
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
@@ -45,15 +49,15 @@ public class AuthService implements UserDetailsService {
 			if(Dcrypto(b,t.getPassword()))
 				{password=t.getPassword();
 				user=t.getEmailId();
+				authorities.clear();
+				authorities.add(new SimpleGrantedAuthority("ROLE_"+t.getRole()));
 				break;
 				}
 			
 			System.out.println(user+password);
 		}
 		System.out.println(user+password);
-		Thread.sleep(10000);
 	}
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if(username.equals("username"))
@@ -63,8 +67,7 @@ public class AuthService implements UserDetailsService {
 			
 		}
 		else if (user.equals(username)) {
-			return new User(user, password,
-					new ArrayList<>());
+			return new org.springframework.security.core.userdetails.User(user,password,authorities);
 		} else {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}

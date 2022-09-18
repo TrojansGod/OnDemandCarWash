@@ -33,13 +33,13 @@ class UserApplicationTests {
 	
 	@Test
 	public void getUsersTest() {
-		when(userRepository.findAll()).thenReturn(Stream.of(new Customer("Denis", "Ritchie","denis@gmail.com", "USA","12345","lamborghini")).collect(Collectors.toList()));
+		when(userRepository.findAll()).thenReturn(Stream.of(new Customer("Denis", "Ritchie","denis@gmail.com", "USA","12345","lamborghini","user")).collect(Collectors.toList()));
 		assertEquals(1, service.getUsers().size());
 	}
 	
 	@Test
 	public void saveUserTest() {
-		Customer customer = new Customer("Ak", "kk", "Ak@gmail.com", "Pune","123456","ford gt");
+		Customer customer = new Customer("Ak", "kk", "Ak@gmail.com", "Pune","123456","ford gt","admin");
 		when(userRepository.save(customer)).thenReturn(customer);
 		assertEquals(customer, service.addUser(customer));
 	}

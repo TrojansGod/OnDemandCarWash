@@ -36,7 +36,6 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody Request authenticationRequest) throws Exception {
 		System.out.println("I AM HERE");
 		System.out.println(authenticationRequest.getUsername()+ authenticationRequest.getPassword());
-		Thread.sleep(10000);
 		userDetailsService.auth(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService

@@ -7,5 +7,5 @@ import com.carwash.washer.models.Washer;
 
 @Repository
 public interface WasherRepository extends MongoRepository<Washer,String>{
-
+	
 }

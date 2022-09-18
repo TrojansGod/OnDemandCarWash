@@ -2,6 +2,7 @@ package com.carwash.order.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,10 @@ public class OrderService {
 	@Autowired
 	private OrderRepository repository;
 	
+	UUID uuid=UUID.randomUUID(); 
+	
 	public Order addOrder(Order order) {
+		order.setOrderId(uuid.toString());
 		return repository.save(order);
 	}
 	
@@ -28,12 +32,8 @@ public class OrderService {
 		repository.deleteById(orderId);
 	}
 
-	public Optional<Order> getByOrderId(String orderId) {
-		return repository.findByOrderId(orderId);
+	public Optional<Order> getByOrderId(String washerId) {
+		return repository.findById(washerId);
 	}
-	public Order getByOrderEmail(String emailId) {
-		return repository.findByEmail(emailId);
-	}
-
 	
 }
